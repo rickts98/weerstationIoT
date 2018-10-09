@@ -1,9 +1,14 @@
+//Naam: Rens Aerts
+//Datum: 09-10-2018
+//zorgen dat op de juiste tijdstippen de waardes worden geprint
+
 unsigned long prevMillisLDR;
 unsigned long prevMillisTemp;
 int intervalLDR = 7000;
 int intervalTemp = 5000;
 
 void timerSetup(){
+  ldrSetup();
   prevMillisLDR = millis();
   prevMillisTemp = millis();
 }
@@ -14,14 +19,18 @@ void timerLoop(){
 
   if (currentMillisLDR - prevMillisLDR >= intervalLDR) {
     prevMillisLDR = currentMillisLDR;
-    
+
+    //hier word de data uiteindelijk verzonden
+    Serial.print("Lichtsterkte: ");
     Serial.println(getLDRValue());
   }
   
   if (currentMillisTemp - prevMillisTemp >= intervalTemp) {
     prevMillisTemp = currentMillisTemp;
-    
-    Serial.println(getLDRValue());
+
+//hier word de data uiteindelijk verzonden
+    Serial.print("Temperatuur: ");
+    Serial.println(readTempValue());
   }
 }
 
