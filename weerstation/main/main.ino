@@ -1,17 +1,13 @@
 void setup() {
-
-  // put your setup code here, to run once:
 Serial.begin(9600);
-  ldrSetup();
+  hardwareSetup();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
-
-
   Serial.println(readTempValueRAW());
   sendTempString();
 }
 
-
+void hardwareSetup(){
+  ldrSetup();
+  }
