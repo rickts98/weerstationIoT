@@ -8,7 +8,6 @@ int intervalLDR = 7000;
 int intervalTemp = 5000;
 
 void timerSetup(){
-  ldrSetup();
   prevMillisLDR = millis();
   prevMillisTemp = millis();
 }
