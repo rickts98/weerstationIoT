@@ -1,3 +1,7 @@
+//Naam: Rens Aerts
+//Datum: 09-10-2018
+//Aansturen van leds
+
 const int NLEDS = 3;
 const int PINARRAY[] = {5,6,7};
 //5 = Geel, 6 = Groen, 7 = Rood
