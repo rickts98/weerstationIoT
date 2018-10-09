@@ -1,7 +1,6 @@
 //Naam: Rick ter Steege
 //Datum: 9-10-2018
 //functionaliteiten die te maken hebben met de temperatuur 
-//bron
 //Bron: https://git.icaprojecten.nl/stash/pages/~CHRIS.VANUFFELEN_HAN.NL/iot-software-pub/master/browse/#Thermistor%20code
 
 
