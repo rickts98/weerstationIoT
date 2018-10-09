@@ -1,18 +1,11 @@
 void setup() {
 Serial.begin(9600);
   timerSetup();
-}
-
-void loop() {
-  timerLoop();
-}
-
-
   hardwareSetup();
 }
 
 void loop() {
-  Serial.println(readTempValueRAW());
+  timerLoop();
   sendTempString();
 }
 
