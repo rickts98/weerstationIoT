@@ -8,3 +8,15 @@ void loop() {
 }
 
 
+  hardwareSetup();
+}
+
+void loop() {
+  Serial.println(readTempValueRAW());
+  sendTempString();
+}
+
+void hardwareSetup(){
+  ldrSetup();
+  }
+>>>>>>> 4b753b97c28774378e74986d360ef1bb0b50fbe5
