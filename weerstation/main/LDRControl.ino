@@ -10,12 +10,9 @@ void ldrSetup(){
   pinMode(LDRPIN, INPUT);
 }
 
-char getLDRValue() {
 int getLDRValue() {
   int ldrValue = analogRead(LDRPIN);
   
-  for(int i=1; i<=256; i++){
-      if(ldrValue < 4*i){
   for(int i=1; i<=512; i++){
       if(ldrValue < 2*i){
         LDRValue = i;
