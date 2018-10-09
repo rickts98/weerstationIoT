@@ -2,6 +2,7 @@
 //Datum: 9-10-2018
 //functionaliteiten die te maken hebben met de temperatuur 
 
+//bron
 
 
 
@@ -11,6 +12,7 @@ const int thermistorPin = A0;
 // Thermistor calculation values
 #define RESISTOR 10000  //voltage divider resistor
 #define THERMISTOR 250 //thermistor value at 25 degrees
+#define THERMISTOR 24000 //thermistor value at 25 degrees
 
 //Steinhart-Hart parameter a, b, c and d (from datasheet, NTC 4.7kohm)
 #define SHa 0.003354016
