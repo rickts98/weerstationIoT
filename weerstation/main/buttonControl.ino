@@ -13,6 +13,10 @@ void buttonLoop(){
   }
 }
 
+boolean getButtonPressed() {
+  return buttonPressed;
+}
+
 boolean buttonDown(){
   return (digitalRead(BUTTONPIN) == LOW);
 }

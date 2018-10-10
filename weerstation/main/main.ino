@@ -2,15 +2,18 @@ void setup() {
   Serial.begin(9600);
   timerSetup();
   hardwareSetup();
+  testSetup();
 }
 
 void loop() {
   timerLoop();
   buttonLoop();
+  testLoop();
 
-  if (buttonDown()) {
-    testComponents();
+  if(buttonDown()){
+    setTestWeerstation(true);
   }
+
 }
 
 void hardwareSetup() {
@@ -19,17 +22,4 @@ void hardwareSetup() {
   buttonSetup();
 }
 
-void testComponents() {
-  for (int i = 0; i < getNrLeds(); i++) {
-    ledControlAan(i);
-    delay(500);
-    ledControlUit(i);
-  }
-  Serial.print("Lichtsterkte: ");
-  Serial.println(getLDRValue());
-  Serial.print("Temperaturr: ");
-  Serial.println(readTempValue());
-
-
-}
 
