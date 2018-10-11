@@ -7,21 +7,21 @@ const int ROOD = 2;
 void tempLedLoop(){
 
 int minTemp = 12;
-int maxTemp = 25;
+int maxTemp = 30;
 
 
 
-  if (readTempValue() < minTemp) {
+  if (printTemperature() < minTemp) {
     ledControlOn(GEEL);
     ledControlOff(GROEN);
     ledControlOff(ROOD);
   }
-  else if (readTempValue() > minTemp && readTempValue() < maxTemp) {
+  else if (printTemperature() > minTemp && printTemperature() < maxTemp) {
     ledControlOn(GROEN);
     ledControlOff(GEEL);
     ledControlOff(ROOD);
     
-  }else if (readTempValue() > maxTemp) {
+  }else if (printTemperature() > maxTemp) {
     ledControlOn(ROOD);
     ledControlOff(GROEN);
     ledControlOff(GEEL);
