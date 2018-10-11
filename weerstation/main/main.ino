@@ -12,19 +12,14 @@ void setup()
   timerSetup();
   hardwareSetup();
   testSetup();
-  
+  initTemp();
+  initGetTemperature();
+  bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
+  bufferLux = cbInit(10, OVERWRITE_IF_FULL);
 }
 
 void loop() {
-//  Serial.println(readTempValueRAW());
-//  Serial.println(readTempValue());
-  bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
-  bufferLux = cbInit(10, OVERWRITE_IF_FULL);
-  Serial.println("Seriale poort werkt");
-}
 
-void loop()
-{
   timerLoop();
   buttonLoop();
   testLoop();
