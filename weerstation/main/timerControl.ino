@@ -29,7 +29,7 @@ void timerLoop()
   if (currentMillisTemp - prevMillisTemp >= intervalTemp)
   {
     prevMillisTemp = currentMillisTemp;
-    cbAdd(getBufferTemp(), readTempValue());
+    cbAdd(getBufferTemp(), actualGetTemperature());
     Serial.print("Temp: ");
     Serial.println(cbRead(getBufferTemp()));
   }
