@@ -43,7 +43,7 @@ void testComponents()
         Serial.print("Lichtsterkte: ");
         Serial.println(getLDRValue());
         Serial.print("Temperaturr: ");
-        Serial.println(readTempValue());
+        Serial.println(printTemperature());
         Serial.println("--------------------------------------");
         setTestWeerstation(false);
         i = 0;
