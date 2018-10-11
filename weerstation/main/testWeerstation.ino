@@ -1,6 +1,6 @@
 unsigned long prevMillisTest;
 int testInterval = 500;
-int index = 0;
+int i = 0;
 boolean testWeerstation = false;
 
 void testSetup()
@@ -28,7 +28,7 @@ void testComponents()
         {
             ledControlOff(i);
             setLedStatus(i, false);
-            index++;
+            i++;
         }
         else
         {
@@ -37,16 +37,16 @@ void testComponents()
         }
     }
 
-    if (index >= getNrLeds())
+    if (i >= getNrLeds())
     {
         Serial.println("--------------TestOutput-------------");
         Serial.print("Lichtsterkte: ");
         Serial.println(getLDRValue());
-        Serial.print("Temperaturr: ");
+        Serial.print("Temperature: ");
         Serial.println(printTemperature());
         Serial.println("--------------------------------------");
         setTestWeerstation(false);
-        index = 0;
+        i = 0;
     }
 }
 
