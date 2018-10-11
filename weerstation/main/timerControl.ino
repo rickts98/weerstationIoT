@@ -7,31 +7,30 @@ unsigned long prevMillisTemp;
 int intervalLDR = 7000;
 int intervalTemp = 5000;
 
-void timerSetup(){
+void timerSetup()
+{
   prevMillisLDR = millis();
   prevMillisTemp = millis();
 }
 
-void timerLoop(){
+void timerLoop()
+{
   unsigned long currentMillisLDR = millis();
   unsigned long currentMillisTemp = millis();
 
-  if (currentMillisLDR - prevMillisLDR >= intervalLDR) {
+  if (currentMillisLDR - prevMillisLDR >= intervalLDR)
+  {
     prevMillisLDR = currentMillisLDR;
-
-    //hier word de data uiteindelijk verzonden
-    Serial.print("Lichtsterkte: ");
-    Serial.println(getLDRValue());
+    cbAdd(getBufferLux(), getLDRValue());
+    Serial.print("Lux: ");
+    Serial.println(cbRead(getBufferLux()));
   }
-  
-  if (currentMillisTemp - prevMillisTemp >= intervalTemp) {
-    prevMillisTemp = currentMillisTemp;
 
-//hier word de data uiteindelijk verzonden
-    Serial.print("Temperatuur: ");
-    Serial.println(readTempValue());
+  if (currentMillisTemp - prevMillisTemp >= intervalTemp)
+  {
+    prevMillisTemp = currentMillisTemp;
+    cbAdd(getBufferTemp(), readTempValue());
+    Serial.print("Temp: ");
+    Serial.println(cbRead(getBufferTemp()));
   }
 }
-
-
-
