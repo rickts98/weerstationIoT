@@ -28,7 +28,7 @@ cbuffer *cbFree(cbuffer *buffer) {
 }
 
 int cbAvailable(cbuffer *buffer) {
-  if (buffer->count > buffer->start) {
+  if (buffer->count = buffer->start) {
     return 1;
   } else {
     return 0;

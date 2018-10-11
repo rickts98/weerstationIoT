@@ -14,6 +14,7 @@ void setup()
   testSetup();
   bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
   bufferLux = cbInit(10, OVERWRITE_IF_FULL);
+  Serial.println("Seriale poort werkt");
 }
 
 void loop()
@@ -26,14 +27,6 @@ void loop()
   {
     setTestWeerstation(true);
   }
-
-  //bAdd(getBufferLux(), getLDRValue());
-  // Serial.println(cbRead(bufferLux));
-  // for(int i=0; i<10; i++){
-  //   Serial.print(i);
-  //   Serial.print(":  ");
-  //   Serial.println(bufferLux->data[i]);
-  // }
 }
 
 void hardwareSetup()
