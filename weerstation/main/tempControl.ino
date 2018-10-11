@@ -48,8 +48,5 @@ float actualGetTemperature() {
 
 int printTemperature() {
   initGetTemperature();
-  
-
-
   return actualGetTemperature();
 }
