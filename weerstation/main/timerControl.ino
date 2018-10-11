@@ -19,7 +19,7 @@ void timerLoop(){
   if (currentMillisLDR - prevMillisLDR >= intervalLDR) {
     prevMillisLDR = currentMillisLDR;
 
-    if(cbAvailable(getBufferLux())){
+    if(cbAvailable(getBufferLux()) == 1){
       cbAdd(getBufferLux(), getLDRValue());
     }
   }
@@ -27,8 +27,7 @@ void timerLoop(){
   if (currentMillisTemp - prevMillisTemp >= intervalTemp) {
     prevMillisTemp = currentMillisTemp;
 
-//hier word de data uiteindelijk verzonden
-    if(cbAvailable(getBufferTemp())){
+    if(cbAvailable(getBufferTemp()) == 1){
       cbAdd(getBufferTemp(), readTempValue());
     }
   }
