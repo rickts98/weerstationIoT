@@ -19,17 +19,18 @@ void timerLoop(){
   if (currentMillisLDR - prevMillisLDR >= intervalLDR) {
     prevMillisLDR = currentMillisLDR;
 
-    //hier word de data uiteindelijk verzonden
-    Serial.print("Lichtsterkte: ");
-    Serial.println(getLDRValue());
+    if(cbAvailable(getBufferLux())){
+      cbAdd(getBufferLux(), getLDRValue());
+    }
   }
   
   if (currentMillisTemp - prevMillisTemp >= intervalTemp) {
     prevMillisTemp = currentMillisTemp;
 
 //hier word de data uiteindelijk verzonden
-    Serial.print("Temperatuur: ");
-    Serial.println(readTempValue());
+    if(cbAvailable(getBufferTemp())){
+      cbAdd(getBufferTemp(), readTempValue());
+    }
   }
 }
 
