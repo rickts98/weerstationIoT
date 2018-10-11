@@ -3,12 +3,16 @@ void setup() {
   timerSetup();
   hardwareSetup();
   testSetup();
+  
 }
 
 void loop() {
+//  Serial.println(readTempValueRAW());
+//  Serial.println(readTempValue());
   timerLoop();
   buttonLoop();
   testLoop();
+  tempLedLoop();
 
   if(buttonDown()){
     setTestWeerstation(true);
@@ -21,5 +25,7 @@ void hardwareSetup() {
   ledControlSetup();
   buttonSetup();
 }
+
+
 
 
