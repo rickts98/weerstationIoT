@@ -22,7 +22,7 @@ void webServerSetup(){
 
 void webServer(){
 
-  // listen for incoming clients
+ // listen for incoming clients
   EthernetClient client = server.available();
   if (client) {
     Serial.println("new client");
@@ -37,23 +37,24 @@ void webServer(){
         // so you can send a reply
         if (c == '\n' && currentLineIsBlank) {
           // send a standard http response header
-          client.println("HTTP/1.1 200 OK");
-          client.println("Content-Type: text/html");
-          client.println("Connection: close");  // the connection will be closed after completion of the response
-          client.println("Refresh: 5");  // refresh the page automatically every 5 sec
-          client.println();
-          client.println("<!DOCTYPE HTML>");
-          client.println("<html>");
-          // output the value of each analog input pin
-          // output de value of temp sensor
-           client.print("temperatuur ");
-          client.print(printTemperature());
+
+
+     client.print("GET /temp HTTP/1.1");
+     client.println("Content-Type: application/json");
+     client.println();
+     client.print("{");
+     client.print("\"timestamp\": 1475783909566791977,");
+     client.print("\"data\": {");
+     client.print("\"Temperatuur\": ");
+     client.print(printTemperature());
+     client.print("}");
+     client.print("}");
+     client.print("/n");
+   
+
+
           
-          client.print("</br>");
-          client.print("Lichtintensiteit: ");
-          client.print(getLDRValue());
-          client.println("</html>");
-          break;
+           
         }
         if (c == '\n') {
           // you're starting a new line
@@ -70,5 +71,20 @@ void webServer(){
     client.stop();
     Serial.println("client disconnected");
   }
+/*
+  client.print("HTTP/1.1");
+          client.println("Content-Type: text/html");
+          client.println("Connection: close");  // the connection will be closed after completion of the response
+          client.println();
+          client.println("<!DOCTYPE HTML>");
+          client.println("<html>");
+          client.print("temperatuur ");
+          client.print(printTemperature());
+          
+          client.print("</br>");
+          client.print("Lichtintensiteit: ");
+          client.print(getLDRValue());
+          client.println("</html>");
+ */           
 }
 
