@@ -31,6 +31,7 @@ char peek() { return httpClient.peek(); }
 void setup()
 {
   Serial.begin(9600);
+<<<<<<< HEAD
   
   timerSetup();
   hardwareSetup();
@@ -50,13 +51,21 @@ void setup()
 void loop() {
 //  Serial.println(readTempValueRAW());
 //  Serial.println(readTempValue());
+=======
+  Serial.println("test");
+  webServerSetup();
+   Serial.println("test1");
+  timerSetup();
+  hardwareSetup();
+  testSetup();
+>>>>>>> ba25a98be441541c26b9a16e67bfd9fa037d2a02
   bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
   bufferLux = cbInit(10, OVERWRITE_IF_FULL);
-  Serial.println("Seriale poort werkt");
 }
 
-void loop()
-{
+void loop() {
+ 
+webServer();
   timerLoop();
   buttonLoop();
   testLoop();
@@ -73,6 +82,8 @@ void hardwareSetup()
   ldrSetup();
   ledControlSetup();
   buttonSetup();
+  initTemp();
+  initGetTemperature();
 }
 
 cbuffer *getBufferTemp()
