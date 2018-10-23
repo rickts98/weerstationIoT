@@ -3,7 +3,7 @@
 //functionaliteiten die te maken hebben met de temperatuur 
 #include <OneWire.h>
 
-const int tempPIN = 3;
+const int tempPIN = 2;
 OneWire ds18b20(tempPIN);
 byte ds18b20Addr[8];
 
