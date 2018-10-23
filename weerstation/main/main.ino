@@ -22,16 +22,15 @@ const int toksize = 20; // max token size
 
 // make httpClient methods available as ordinary functions
 
-int available() { return httpClient.available(); }
+int clientAvailable() { return httpClient.available(); }
 
-char read() { return httpClient.read(); }
+char clientRead() { return httpClient.read(); }
 
-char peek() { return httpClient.peek(); }
+char clientPeek() { return httpClient.peek(); }
 
 void setup()
 {
   Serial.begin(9600);
-<<<<<<< HEAD
   
   timerSetup();
   hardwareSetup();
@@ -44,22 +43,8 @@ void setup()
   Serial.print("server is at ");
 
   Serial.println(Ethernet.localIP());
-  initParser(available, read, peek);
-  
-}
-
-void loop() {
-//  Serial.println(readTempValueRAW());
-//  Serial.println(readTempValue());
-=======
-  Serial.println("test");
-  webServerSetup();
-   Serial.println("test1");
-  timerSetup();
-  hardwareSetup();
-  testSetup();
->>>>>>> ba25a98be441541c26b9a16e67bfd9fa037d2a02
-  bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
+  initParser(clientAvailable, clientRead, clientPeek);
+    bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
   bufferLux = cbInit(10, OVERWRITE_IF_FULL);
 }
 
