@@ -37,58 +37,64 @@ void webServer()
 {
 
   // listen for incoming clients
-  EthernetClient client = server.available();
-  if (client)
+  httpClient = server.available();
+  if (httpClient)
   {
     Serial.println("new client");
 
-    while (client.connected())
+    while (httpClient.connected())
     {
-      if (client.available())
-      {
         char output[toksize];
+
         enum response tok;
 
         tok = parse(output, toksize);
 
+        Serial.println(output);
+
         if(tok == TEMP_200){
-          client.print("GET /temp HTTP/1.1");
-          client.println("Content-Type: application/json");
-          client.println();
-          client.print("{");
-          client.print("\"timestamp\": 1475783909566791977,");
-          client.print("\"data\": {");
-          client.print("\"Temperatuur\": ");
-          client.print(printTemperature());
-          client.print("}");
-          client.print("}");
-          client.print("/n");
+          httpClient.println("GET /temp HTTP/1.1");
+          httpClient.println("Content-Type: application/json");
+          httpClient.println();
+          httpClient.print("{");
+          httpClient.print("\"timestamp\": 1475783909566791977,");
+          httpClient.print("\"data\": {");
+          httpClient.print("\"Temperatuur\": ");
+          httpClient.print(printTemperature());
+          httpClient.print("}");
+          httpClient.println("}");
 
           resetParser();
+          break;
         }else if(tok == LUX_200) {
-          client.print("GET /lux HTTP/1.1");
-          client.println("Content-Type: application/json");
-          client.println();
-          client.print("{");
-          client.print("\"timestamp\": 1475783909566791977,");
-          client.print("\"data\": {");
-          client.print("\"Lux\": ");
-          client.print(getLDRValue());
-          client.print("}");
-          client.print("}");
-          client.print("/n");
+          httpClient.println("GET /lux HTTP/1.1");
+          httpClient.println("Content-Type: application/json");
+          httpClient.println();
+          httpClient.print("{");
+          httpClient.print("\"timestamp\": 1475783909566791977,");
+          httpClient.print("\"data\": {");
+          httpClient.print("\"Lichtintensiteit\": ");
+          httpClient.print(getLDRValue());
+          httpClient.print("}");
+          httpClient.println("}");
           
           resetParser();
-        }else{
-          client.println("bad request");
+          break;
+        }else if(tok == BAD_REQUEST_400){
+          httpClient.println("BAD_REQUEST_400");
+          resetParser();
+          break;
+        }else if(tok == NOT_IMPLEMENTED_501){
+          httpClient.println("NOT_IMPLEMENTED_501");
+          resetParser();
+          break;
         }
       
-      }
     }
     // give the web browser time to receive the data
     delay(1);
     // close the connection:
-    client.stop();
+    httpClient.stop();
     Serial.println("client disconnected");
   }
   /*
@@ -107,3 +113,5 @@ void webServer()
           client.println("</html>");
  */
 }
+
+void printJSON(){}
