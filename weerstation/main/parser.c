@@ -13,6 +13,7 @@
 #define CONFIGURATION "/conf"
 #define HTTP10 "HTTP/1.0"
 #define HTTP11 "HTTP/1.1"
+#define DATA "/"
 
 
 /**
@@ -39,7 +40,7 @@ enum stage {
  */
 
 enum verb { unknownV, get };
-enum resource { unknownR, temp, lux, config };
+enum resource { unknownR, temp, lux, config, data };
 enum version { unknownVn, http10, http11 };
 
 
@@ -140,7 +141,9 @@ enum response parseResource(char *tokenv, int tokenc) {
 		request.resource = lux;
 	}else if(strncmp(tokenv, CONFIGURATION, tokenc) == 0){
 		request.resource = config;
-	}
+	}else if(strncmp(tokenv, DATA, tokenc) == 0){
+    request.resource = data;
+  }
 
 	if(request.resource == unknownR){
 		return NOT_IMPLEMENTED_501;
@@ -150,6 +153,10 @@ enum response parseResource(char *tokenv, int tokenc) {
   }else if(request.resource == lux){
     request.next++;
     return LUX_200;
+  }else if(request.resource == data){
+    return DATA_200;
+  }else if(request.resource == config){
+    return CONFIG_200;
   }
 
 

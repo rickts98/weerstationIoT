@@ -3,13 +3,10 @@ const int GEEL = 0;
 const int GROEN = 1;
 const int ROOD = 2;
 
-
-void tempLedLoop(){
-
 int minTemp = 12;
 int maxTemp = 30;
 
-
+void tempLedLoop(){
 
   if (printTemperature() < minTemp) {
     ledControlOn(GEEL);
@@ -26,5 +23,21 @@ int maxTemp = 30;
     ledControlOff(GROEN);
     ledControlOff(GEEL);
   }
+}
+
+int getMinTemp(){
+  return minTemp;
+}
+
+int getMaxTemp(){
+  return maxTemp;
+}
+
+void setMinTemp(int temp){
+  minTemp = temp;
+}
+
+void setMaxTemp(int temp){
+  maxTemp = temp;
 }
 

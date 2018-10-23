@@ -7,7 +7,9 @@ enum response {
 
   IN_PROGRESS, // only part of the requests parsed
 
-  // CONFIG_200, // reply current config
+  DATA_200,
+
+  CONFIG_200, // reply current config
 
   // CONFIG_201, // new config accepted
 
