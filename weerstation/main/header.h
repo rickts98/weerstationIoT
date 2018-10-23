@@ -19,11 +19,21 @@ void initParser(int (*availableFunc)(), // client available function
 
 
 /**
+
  * these function pointers can be reqgarded as functionsion defined
+
  * in header.c.
+
+ *
+
  * so, read this as "function available()" defined here.  This is not
+
  * actually true, but conceptually it makes things easier to understand.
+
+ *
+
  * see @kenr p. 45
+
  */
 
 extern int (*available)();

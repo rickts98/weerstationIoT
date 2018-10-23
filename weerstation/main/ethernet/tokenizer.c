@@ -75,6 +75,7 @@ enum token scanWord(char *tokenv, int tokenc)
     }
     else
     {
+      logmsg("woord");
       return WORD;
     }
   }
