@@ -1,4 +1,4 @@
-#include <Ethernet.h>
+/*#include <Ethernet.h>
 extern "C"
 {
 #include "ethernet.h"
@@ -25,5 +25,5 @@ long int ethernetRead() {
 int32_t ethernetPeek() {
     return client.Peek();
 }
-
+*/
 
