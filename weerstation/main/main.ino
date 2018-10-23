@@ -10,6 +10,22 @@ cbuffer *bufferTemp;
 cbuffer *bufferLux;
 
 
+IPAddress ip(192, 168, 1, 100);
+
+EthernetServer server(80);
+
+EthernetClient httpClient;
+
+const int toksize = 20; // max token size
+
+
+// make httpClient methods available as ordinary functions
+
+int clientAvailable() { return httpClient.available(); }
+
+char clientRead() { return httpClient.read(); }
+
+char clientPeek() { return httpClient.peek(); }
 
 void setup()
 {
@@ -20,6 +36,19 @@ void setup()
   hardwareSetup();
   testSetup();
   //initParser(available, read, peek);
+  
+  timerSetup();
+  hardwareSetup();
+  testSetup();
+
+   Ethernet.begin(mac, ip);
+
+  server.begin();
+
+  Serial.print("server is at ");
+
+  Serial.println(Ethernet.localIP());
+  initParser(clientAvailable, clientRead, clientPeek);
     bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
   bufferLux = cbInit(10, OVERWRITE_IF_FULL);
   
