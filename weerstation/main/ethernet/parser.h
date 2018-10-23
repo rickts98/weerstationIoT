@@ -13,7 +13,7 @@ enum response {
 
   TEMP_200, // reply temperature
 
-  // LUX_200, // reply light
+  LUX_200, // reply light
 
   BAD_REQUEST_400,     // no host, syntax error
 

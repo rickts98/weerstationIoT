@@ -1,8 +1,9 @@
 #include "tokenizer.h"
+#include "reader.h"
 #include <assert.h>
 #include <string.h>
+
 #include <stdio.h>
-#include "ethernet.h"
 
 enum token scanWhiteSpace(char *tokenv, int tokenc);
 enum token scanNewLines(char *tokenv, int tokenc);
@@ -19,18 +20,19 @@ int isNewLine(char c)
 }
 
 enum token scan(char *tokenv, int tokenc)
-{
+{  
+
   assert(tokenc > 0);
 
   if (available())
   {
     memset(tokenv, 0, tokenc); // reset token value
 
-    char c = peek1();
+    char c = peek();
 
     if (c == ':')
     {
-      tokenv[0] = read1();
+      tokenv[0] = read();
 
       return COLON;
     }
@@ -58,19 +60,22 @@ enum token scanWord(char *tokenv, int tokenc)
 {
   int pos = 0;
 
+
+
   for (;;)
   {
-    if (available() && !isWhiteSpace(peek1()) && !isNewLine(peek1()))
+    if (available() && !isWhiteSpace(peek()) && !isNewLine(peek()))
     {
       if (pos >= tokenc - 1)
       {
         return ILLEGAL;
       }
-      tokenv[pos] = read1();
+      tokenv[pos] = read();
       pos++;
     }
     else
     {
+      logmsg("woord");
       return WORD;
     }
   }
@@ -84,16 +89,15 @@ enum token scanWhiteSpace(char *tokenv, int tokenc)
   for (;;)
   {
 
-    if (available() && isWhiteSpace(peek1()))
+    if (available() && isWhiteSpace(peek()))
     {
 
       if (pos >= tokenc - 1)
       {
-
         return ILLEGAL;
       }
 
-      tokenv[pos] = read1();
+      tokenv[pos] = read();
 
       pos++;
     }
@@ -113,16 +117,15 @@ enum token scanNewLines(char *tokenv, int tokenc)
   for (;;)
   {
 
-    if (available() && isNewLine(peek1()))
+    if (available() && isNewLine(peek()))
     {
 
       if (pos >= tokenc - 1)
       {
-
         return ILLEGAL;
       }
 
-      tokenv[pos] = read1();
+      tokenv[pos] = read();
 
       pos++;
     }

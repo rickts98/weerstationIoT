@@ -1,6 +1,6 @@
 #include "parser.h"
-#include "tokenizer.h"
 #include "reader.h"
+#include "tokenizer.h"
 #include <string.h>
 
 
@@ -67,8 +67,9 @@ enum response parseVersion(char *tokenv, int tokenc);
 
 enum response parse(char *tokenv, int tokenc) {
 
-  if (!available())
+  if (!available()){
     return BAD_REQUEST_400;
+  }
 
   switch (request.next) {
   case verb:
@@ -80,7 +81,7 @@ enum response parse(char *tokenv, int tokenc) {
   case space1:
   case space2:
     return parseSpace(tokenv, tokenc, WS, SPACE);
-  case crlf1:
+  case crlf1: 
     return parseSpace(tokenv, tokenc, EOL, CRLF);
   }
 
@@ -94,14 +95,15 @@ enum response parseSpace(char *tokenv, int tokenc, enum token ttype,
   enum token tok;
   tok = scan(tokenv, tokenc);
 
-  if (tok != ttype)
+  if (tok != ttype){
     return BAD_REQUEST_400;
+  }
 
-  if (strncmp(tokenv, expect, tokenc) != 0)
+  if (strncmp(tokenv, expect, tokenc) != 0){
     return BAD_REQUEST_400;
+  }
 
   request.next++;
-
   return IN_PROGRESS;
 }
 
@@ -110,8 +112,9 @@ enum response parseVerb(char *tokenv, int tokenc) {
   enum token tok;
   tok = scan(tokenv, tokenc);
 
-  if (tok != WORD)
+  if (tok != WORD){
     return BAD_REQUEST_400;
+  }
 
   if (strncmp(tokenv, GET, tokenc) == 0)
     request.verb = get;
@@ -141,7 +144,14 @@ enum response parseResource(char *tokenv, int tokenc) {
 
 	if(request.resource == unknownR){
 		return NOT_IMPLEMENTED_501;
-	}
+	}else if(request.resource == temp){
+    request.next ++;
+    return TEMP_200;
+  }else if(request.resource == lux){
+    request.next++;
+    return LUX_200;
+  }
+
 
 	request.next++;
   return IN_PROGRESS;
@@ -153,18 +163,21 @@ enum response parseVersion(char *tokenv, int tokenc) {
   enum token tok;
   tok = scan(tokenv, tokenc);
 
-  if (tok != WORD)
+  if (tok != WORD){
+
     return BAD_REQUEST_400;
+  }
 
   if (strncmp(tokenv, HTTP10, tokenc) == 0)
     request.version = http10;
   else if (strncmp(tokenv, HTTP11, tokenc) == 0)
     request.version = http11;
 
-  if (request.version == unknownVn)
+  if (request.version == unknownVn){
     return BAD_REQUEST_400;
+  }
 
-  request.next++;
+  request.next ++;
   return IN_PROGRESS;
 
 }
