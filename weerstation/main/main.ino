@@ -11,15 +11,11 @@ cbuffer *bufferLux;
 void setup()
 {
   Serial.begin(9600);
-
-  timerSetup();
-  hardwareSetup();
-  testSetup();  
   timerSetup();
   hardwareSetup();
   testSetup();
   webServerSetup();
-
+  
   bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
   bufferLux = cbInit(10, OVERWRITE_IF_FULL);
   
@@ -46,7 +42,6 @@ void hardwareSetup()
   ldrSetup();
   ledControlSetup();
   buttonSetup();
- // initTemp();
   initGetTemperature();
 }
 
