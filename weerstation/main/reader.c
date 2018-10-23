@@ -1,4 +1,4 @@
-#include "reader.h"
+/*#include "reader.h"
 
 
 int (*available)();
@@ -18,4 +18,4 @@ void initParser(int (*availableFunc)(), char (*readFunc)(),
 
   peek = peekFunc;
 
-}
+}*/
