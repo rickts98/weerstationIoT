@@ -1,8 +1,6 @@
 extern "C"
 {
 #include "circularbuffer.h"
-#include "reader.h"
-#include "tokenizer.h"
 }
 
 
@@ -10,46 +8,19 @@ cbuffer *bufferTemp;
 cbuffer *bufferLux;
 
 
-IPAddress ip(192, 168, 1, 100);
-
-EthernetServer server(80);
-
-EthernetClient httpClient;
-
-const int toksize = 20; // max token size
-
-
-// make httpClient methods available as ordinary functions
-
-int clientAvailable() { return httpClient.available(); }
-
-char clientRead() { return httpClient.read(); }
-
-char clientPeek() { return httpClient.peek(); }
-
 void setup()
 {
-  Serial.begin(9600);
-    webServerSetup();
+  Serial.begin(115200);
 
   timerSetup();
   hardwareSetup();
-  testSetup();
-  //initParser(available, read, peek);
-  
+  testSetup();  
   timerSetup();
   hardwareSetup();
   testSetup();
+  webServerSetup();
 
-   Ethernet.begin(mac, ip);
-
-  server.begin();
-
-  Serial.print("server is at ");
-
-  Serial.println(Ethernet.localIP());
-  initParser(clientAvailable, clientRead, clientPeek);
-    bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
+  bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
   bufferLux = cbInit(10, OVERWRITE_IF_FULL);
   
 }
