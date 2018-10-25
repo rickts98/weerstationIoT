@@ -1,4 +1,4 @@
-
+//variablen
 const int GEEL = 0;
 const int GROEN = 1;
 const int ROOD = 2;
