@@ -3,7 +3,6 @@ extern "C"
 #include "circularbuffer.h"
 }
 
-
 cbuffer *bufferTemp;
 cbuffer *bufferLux;
 
@@ -15,6 +14,7 @@ void setup()
   hardwareSetup();
   testSetup();
   webServerSetup();
+
   
   bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
   bufferLux = cbInit(10, OVERWRITE_IF_FULL);

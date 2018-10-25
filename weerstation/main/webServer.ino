@@ -9,7 +9,7 @@ extern "C"
 byte mac[] = {
     0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
-IPAddress ip(192, 168, 1, 100);
+//IPAddress ip(192, 168, 1, 100);
 EthernetServer server(80);
 
 EthernetClient httpClient;
@@ -19,72 +19,10 @@ int clientAvailable() { return httpClient.available(); }
 char clientRead() { return httpClient.read(); }
 char clientPeek() { return httpClient.peek(); }
 
-void printJSON(String request){
-  httpClient.println("HTTP/1.1 200 OK");
-  httpClient.println("Content-Type: application/json");
-  httpClient.println("Connection: close");
-  httpClient.println();
-  httpClient.print("{");
-  httpClient.print("\"timestamp\": 1475783909566791977,");
-  httpClient.print("\"data\": {");
-  if(request == "/lux") {
-    httpClient.print("\"Lichtintensiteit\": ");
-    httpClient.print(getLDRValue());
-  }else if(request == "/temp"){
-    httpClient.print("\"Temperatuur\": ");
-    httpClient.print(printTemperature());          
-  }else if(request == "/conf") {
-    httpClient.print("\"maximale grenswaarde\": ");
-    httpClient.print(getMaxTemp());
-    httpClient.print(",");
-    httpClient.print("\"minimale grenswaarde\": ");
-    httpClient.print(getMinTemp());
-    httpClient.print(",");
-    httpClient.print("\"Temperatuur\": ");
-    httpClient.print(printTemperature());   
-    httpClient.print(",");
-    httpClient.print("\"Lichtintensiteit\": ");
-    httpClient.print(getLDRValue());
-  }
-  httpClient.print("}");
-  httpClient.println("}");
-}
-
-void printHTML() {
-    httpClient.print("HTTP/1.1");
-          httpClient.println("Content-Type: text/html");
-          httpClient.println("Connection: close");  // the connection will be closed after completion of the response
-          httpClient.println();
-          httpClient.println("<!DOCTYPE HTML>");
-          httpClient.println("<html>");
-          httpClient.println("<head>");
-          httpClient.println("<meta charset=\"UTF-8\">");
-          httpClient.println("<title>");
-          httpClient.println("Weerstation");
-          httpClient.println("</title>");
-          httpClient.println("<body>");
-          httpClient.print("Temperatuur: ");
-          httpClient.print(printTemperature());
-          httpClient.print(" graden Celcius ");
-          httpClient.print("(min: ");
-          httpClient.print(getMinTemp());
-          httpClient.print(", max: ");
-          httpClient.print(getMaxTemp());
-          httpClient.print(")");
-          httpClient.print("</br>");
-          httpClient.print("Lichtintensiteit: ");
-          httpClient.print(getLDRValue());
-          httpClient.println(" lux");
-          httpClient.println("</body>");
-          httpClient.println("</html>");
-}
-
-
 void webServerSetup()
 {
 
-  Ethernet.begin(mac, ip);
-  server.begin();
+  Ethernet.begin(mac);
 
   // start the server
   server.begin();
@@ -149,5 +87,65 @@ void webServer()
     Serial.println("client disconnected");
   }
   
+}
+
+void printJSON(String request){
+  httpClient.println("HTTP/1.1 200 OK");
+  httpClient.println("Content-Type: application/json");
+  httpClient.println("Connection: close");
+  httpClient.println();
+  httpClient.print("{");
+  httpClient.print("\"timestamp\": 1475783909566791977,");
+  httpClient.print("\"data\": {");
+  if(request == "/lux") {
+    httpClient.print("\"Lichtintensiteit\": ");
+    httpClient.print(getLDRValue());
+  }else if(request == "/temp"){
+    httpClient.print("\"Temperatuur\": ");
+    httpClient.print(printTemperature());          
+  }else if(request == "/conf") {
+    httpClient.print("\"maximale grenswaarde\": ");
+    httpClient.print(getMaxTemp());
+    httpClient.print(",");
+    httpClient.print("\"minimale grenswaarde\": ");
+    httpClient.print(getMinTemp());
+    httpClient.print(",");
+    httpClient.print("\"Temperatuur\": ");
+    httpClient.print(printTemperature());   
+    httpClient.print(",");
+    httpClient.print("\"Lichtintensiteit\": ");
+    httpClient.print(getLDRValue());
+  }
+  httpClient.print("}");
+  httpClient.println("}");
+}
+
+void printHTML() {
+    httpClient.print("HTTP/1.1");
+          httpClient.println("Content-Type: text/html");
+          httpClient.println("Connection: close");  // the connection will be closed after completion of the response
+          httpClient.println();
+          httpClient.println("<!DOCTYPE HTML>");
+          httpClient.println("<html>");
+          httpClient.println("<head>");
+          httpClient.println("<meta charset=\"UTF-8\">");
+          httpClient.println("<title>");
+          httpClient.println("Weerstation");
+          httpClient.println("</title>");
+          httpClient.println("<body>");
+          httpClient.print("Temperatuur: ");
+          httpClient.print(printTemperature());
+          httpClient.print(" graden Celcius ");
+          httpClient.print("(min: ");
+          httpClient.print(getMinTemp());
+          httpClient.print(", max: ");
+          httpClient.print(getMaxTemp());
+          httpClient.print(")");
+          httpClient.print("</br>");
+          httpClient.print("Lichtintensiteit: ");
+          httpClient.print(getLDRValue());
+          httpClient.println(" lux");
+          httpClient.println("</body>");
+          httpClient.println("</html>");
 }
 
