@@ -137,6 +137,8 @@ void webServer()
           httpClient.println("NOT_IMPLEMENTED_501");
           resetParser();
           break;
+        }else if(tok == METHOD_NOT_ALLOWED_405){
+          httpClient.println("METHOD_NOT_ALLOWED_405");
         }
       
     }

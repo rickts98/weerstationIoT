@@ -21,13 +21,13 @@ enum response {
 
   NOT_IMPLEMENTED_501, // verb not implemented
 
-  // METHOD_NOT_ALLOWED_405, // we're probably not going to do that
+  METHOD_NOT_ALLOWED_405, // we're probably not going to do that
 
   // LENGTH_REQUIRED_411, // no Content-Length
 
   NOT_FOUND_404, // unrecognized resource
 
-                 // UNAUTHORIZED_401 // no or invalid token
+  // UNAUTHORIZED_401 // no or invalid token
 
   INTERNAL_SERVER_ERROR_500
 

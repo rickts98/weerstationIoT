@@ -121,7 +121,7 @@ enum response parseVerb(char *tokenv, int tokenc) {
     request.verb = get;
 
   if (request.verb == unknownV)
-    return NOT_IMPLEMENTED_501;
+    return METHOD_NOT_ALLOWED_405;
 
   request.next++;
   return IN_PROGRESS;
