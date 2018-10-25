@@ -2,18 +2,26 @@
 //Datum: 09-10-2018
 //Functionaliteiten die te maken hebben met de lichtsensor (LDR)
 
+//variabelen 
 const int LDRPIN = A1;
 int LDRValue;
 int oldLDRValue;
 
+
+//setup van LDR
 void ldrSetup(){
   pinMode(LDRPIN, INPUT);
 }
 
+//returned LDR waarde
 int getLDRValue() {
-  int ldrValue = analogRead(LDRPIN);
+
   
-  for(int i=1; i<=512; i++){
+  int ldrValue = analogRead(LDRPIN);
+
+
+  //
+  for(int i=1; i<= 512; i++){
       if(ldrValue < 2*i){
         LDRValue = i;
 
@@ -23,6 +31,7 @@ int getLDRValue() {
         break;  
       }
     }
+    
     return LDRValue;
 }
 
