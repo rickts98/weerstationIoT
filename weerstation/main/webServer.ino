@@ -9,7 +9,7 @@ extern "C"
 byte mac[] = {
     0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
-//IPAddress ip(192, 168, 1, 100);
+IPAddress ip(192, 168, 1, 100);
 EthernetServer server(80);
 
 EthernetClient httpClient;
@@ -35,7 +35,7 @@ char clientPeek() { return httpClient.peek(); }
 void webServerSetup()
 {
 
-  Ethernet.begin(mac);
+  Ethernet.begin(mac, ip);
   Udp.begin(localPort);
   
   //start the server
@@ -109,8 +109,6 @@ void printJSON(String request){
   httpClient.println("Connection: close");
   httpClient.println();
   httpClient.print("{");
-  httpClient.print("\"timestamp\": 1475783909566791977,");
-  httpClient.print("\"data\": {");
   if(request == "/lux") {
     httpClient.print("\"Lichtintensiteit\": ");
     httpClient.print(getLDRValue());
@@ -130,7 +128,6 @@ void printJSON(String request){
     httpClient.print("\"Lichtintensiteit\": ");
     httpClient.print(getLDRValue());
   }
-  httpClient.print("}");
   httpClient.println("}");
 }
 
