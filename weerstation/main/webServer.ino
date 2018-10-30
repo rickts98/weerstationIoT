@@ -13,6 +13,19 @@ byte mac[] = {
 EthernetServer server(80);
 
 EthernetClient httpClient;
+
+/*test*/
+unsigned int localPort = 8888;      // local port to listen on
+
+// buffers for receiving and sending data
+char packetBuffer[UDP_TX_PACKET_MAX_SIZE];  // buffer to hold incoming packet,
+char ReplyBuffer[] = "acknowledged";        // a string to send back
+
+// An EthernetUDP instance to let us send and receive packets over UDP
+EthernetUDP Udp;
+/*end test*/
+
+
 const int toksize = 20;
 
 int clientAvailable() { return httpClient.available(); }
@@ -23,8 +36,9 @@ void webServerSetup()
 {
 
   Ethernet.begin(mac);
-
-  // start the server
+  Udp.begin(localPort);
+  
+  //start the server
   server.begin();
   Serial.print("server is at ");
   Serial.println(Ethernet.localIP());

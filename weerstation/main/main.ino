@@ -10,6 +10,8 @@ cbuffer *bufferLux;
 void setup()
 {
   Serial.begin(9600);
+  Serial.println("hallo");
+
   timerSetup();
   hardwareSetup();
   testSetup();
@@ -43,6 +45,7 @@ void hardwareSetup()
   ledControlSetup();
   buttonSetup();
   initGetTemperature();
+  initTemp();
 }
 
 cbuffer *getBufferTemp()
