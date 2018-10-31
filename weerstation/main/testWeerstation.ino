@@ -24,9 +24,9 @@ void testLoop()
 void testComponents()
 {
     unsigned long currentMillisTest = millis();
-
     if (currentMillisTest - prevMillisTest >= testInterval)
     {
+      Serial.println("jemoeder");
         prevMillisTest = currentMillisTest;
 
         if (isLedOn(i))
@@ -59,3 +59,8 @@ void setTestWeerstation(boolean value)
 {
     testWeerstation = value;
 }
+
+boolean getTestWeerstation(){
+  
+  return testWeerstation;
+  }
