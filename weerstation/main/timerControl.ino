@@ -1,5 +1,3 @@
-//Naam: Rens Aerts
-//Datum: 09-10-2018
 //zorgen dat op de juiste tijdstippen de waardes worden geprint
 
 

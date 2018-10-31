@@ -1,5 +1,3 @@
-//Naam: Rens Aerts
-//Datum: 09-10-2018
 //Functionaliteiten die te maken hebben met de lichtsensor (LDR)
 
 //variabelen 
