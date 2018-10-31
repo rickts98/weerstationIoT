@@ -8,12 +8,12 @@ int testInterval = 500;
 int i = 0;
 boolean testWeerstation = false;
 
-void testSetup()
+void testWeerstationSetup()
 {
     prevMillisTest = millis();
 }
 
-void testLoop()
+void testWeerstationLoop()
 {
     if (testWeerstation)
     {

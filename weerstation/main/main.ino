@@ -14,7 +14,7 @@ void setup()
   Serial.begin(9600);
   timerSetup();
   hardwareSetup();
-  testSetup();
+  testWeerstationSetup();
   webServerSetup();
   //maken van de buffer voor temp en lux deze is 10 groot en overschrijft als het vol is
   bufferTemp = cbInit(10, OVERWRITE_IF_FULL);
@@ -29,7 +29,7 @@ void loop() {
   webServer(); 
   timerLoop();
   buttonLoop();
-  testLoop();
+  testWeerstationLoop();
   
 
   //controle of er op testknop gedrukt is
@@ -38,6 +38,10 @@ void loop() {
  
     //zorg dat de test gebeurt
     setTestWeerstation(true);
+    for(int i=0; i<getNrLeds(); i++){
+      ledControlOff(i);
+      setLedStatus(i, false);
+    }
   }
 
 
@@ -53,8 +57,8 @@ void hardwareSetup()
   ldrSetup();
   ledControlSetup();
   buttonSetup();
-  //initGetTemperature();
-  //initTemp();
+  initGetTemperature();
+  initTemp();
 }
 
 //getter van de temp buffer
