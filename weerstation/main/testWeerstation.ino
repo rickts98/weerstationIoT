@@ -26,7 +26,6 @@ void testComponents()
     unsigned long currentMillisTest = millis();
     if (currentMillisTest - prevMillisTest >= testInterval)
     {
-      Serial.println("jemoeder");
         prevMillisTest = currentMillisTest;
 
         if (isLedOn(i))
