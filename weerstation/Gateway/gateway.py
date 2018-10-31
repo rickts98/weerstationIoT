@@ -4,7 +4,7 @@ import os
 import datetime
 import time
 
-ip = "http://192.168.1.100"
+arrIp = ["http://192.168.1.101", "http://192.168.1.102"]
 
 def getNewToken():
 	url =  "http://iot.jorgvisch.nl/token"
@@ -24,28 +24,24 @@ def getNewToken():
 
 def uploadData():
 	url = "http://iot.jorgvisch.nl/api/Weather"
-	header = {"Authorization":"Bearer " + token}
+	header = {"Authorization":"Bearer " + token ,"Connection": "close"}
 	timestamp = datetime.datetime.now().isoformat()
 
-	temp_raw = request("GET", ip+"/temp")
-	temp_json = json.loads(temp_raw.text)
-	temp = temp_json.get('Temperatuur')
+	for index in range(0, len(arrIp)):
+		raw_data = request("GET", arrIp[index]+"/conf")
+		raw_data_json = json.loads(raw_data.text)
+		temp = raw_data_json.get('Temperatuur')
+		lux = raw_data_json.get('Lichtintensiteit')
+		Id = raw_data_json.get('Weerstation')
 
-	lux_raw = request("GET", ip+"/lux")
-	lux_json = json.loads(lux_raw.text)
-	lux = lux_json.get('Lichtintensiteit')
+		data = {
+			"Weatherstation": Id,
+			"Timestamp": timestamp,
+			"Temperature": temp,
+			"Illuminance": lux
+		}
 
-	print(lux)
-	print(temp)
-
-	data = {
-  		"Weatherstation": "123",
-  		"Timestamp": timestamp,
-  		"Temperature": temp,
-  		"Illuminance": lux
-	}
-
-	send = request("POST", url, headers=header, data=data)
+		send = request("POST", url, headers=header, data=data)
 
 	response = send.text
 
@@ -84,6 +80,7 @@ if __name__ == "__main__":
 			if isTokenOnGeldig():			
 				print("Getting new token")
 				getNewToken()
+				previousMillis = 0;
 			else:
 				print("De data word geupload")
 				uploadData()

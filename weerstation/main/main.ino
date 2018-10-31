@@ -6,6 +6,7 @@ extern "C"
 cbuffer *bufferTemp;
 cbuffer *bufferLux;
 
+int weerstationID = 1;
 
 void setup()
 {

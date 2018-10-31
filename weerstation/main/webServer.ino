@@ -9,22 +9,10 @@ extern "C"
 byte mac[] = {
     0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
-//IPAddress ip(192, 168, 1, 100);
+IPAddress ip(192, 168, 1, 100 + weerstationID);
 EthernetServer server(80);
 
 EthernetClient httpClient;
-
-/*test*/
-unsigned int localPort = 8888;      // local port to listen on
-
-// buffers for receiving and sending data
-char packetBuffer[UDP_TX_PACKET_MAX_SIZE];  // buffer to hold incoming packet,
-char ReplyBuffer[] = "acknowledged";        // a string to send back
-
-// An EthernetUDP instance to let us send and receive packets over UDP
-EthernetUDP Udp;
-/*end test*/
-
 
 const int toksize = 20;
 
@@ -35,9 +23,8 @@ char clientPeek() { return httpClient.peek(); }
 void webServerSetup()
 {
 
-  Ethernet.begin(mac);
-  Udp.begin(localPort);
-  
+  Ethernet.begin(mac, ip);
+
   //start the server
   server.begin();
   Serial.print("server is at ");
@@ -57,42 +44,54 @@ void webServer()
 
     while (httpClient.connected())
     {
-        char output[toksize];
+      char output[toksize];
 
-        enum response tok;
+      enum response tok;
 
-        tok = parse(output, toksize);
+      tok = parse(output, toksize);
 
-        Serial.println(output);
+      Serial.println(output);
 
-        if(tok == TEMP_200){
-          printJSON("/temp");
-          resetParser();
-          break;
-        }else if(tok == LUX_200) {
-          printJSON("/lux");
-          resetParser();
-          break;
-        }else if(tok == DATA_200){
-          printHTML();
-          resetParser();
-          break;  
-        }else if(tok == CONFIG_200){
-          printJSON("/conf");
-          resetParser();
-          break;
-        }else if(tok == BAD_REQUEST_400){
-          httpClient.println("BAD_REQUEST_400");
-          resetParser();
-          break;
-        }else if(tok == NOT_IMPLEMENTED_501){
-          httpClient.println("NOT_IMPLEMENTED_501");
-          resetParser();
-          break;
-        }else if(tok == METHOD_NOT_ALLOWED_405){
-          httpClient.println("METHOD_NOT_ALLOWED_405");
-        }
-      
+      if (tok == TEMP_200)
+      {
+        printJSON("/temp");
+        resetParser();
+        break;
+      }
+      else if (tok == LUX_200)
+      {
+        printJSON("/lux");
+        resetParser();
+        break;
+      }
+      else if (tok == DATA_200)
+      {
+        printHTML();
+        resetParser();
+        break;
+      }
+      else if (tok == CONFIG_200)
+      {
+        printJSON("/conf");
+        resetParser();
+        break;
+      }
+      else if (tok == BAD_REQUEST_400)
+      {
+        httpClient.println("BAD_REQUEST_400");
+        resetParser();
+        break;
+      }
+      else if (tok == NOT_IMPLEMENTED_501)
+      {
+        httpClient.println("NOT_IMPLEMENTED_501");
+        resetParser();
+        break;
+      }
+      else if (tok == METHOD_NOT_ALLOWED_405)
+      {
+        httpClient.println("METHOD_NOT_ALLOWED_405");
+      }
     }
     // give the web browser time to receive the data
     delay(1);
@@ -100,22 +99,31 @@ void webServer()
     httpClient.stop();
     Serial.println("client disconnected");
   }
-  
 }
 
-void printJSON(String request){
+void printJSON(String request)
+{
   httpClient.println("HTTP/1.1 200 OK");
   httpClient.println("Content-Type: application/json");
   httpClient.println("Connection: close");
   httpClient.println();
   httpClient.print("{");
-  if(request == "/lux") {
+  httpClient.print("\"Weerstation\": \"ID");
+  httpClient.print(weerstationID);
+  httpClient.print("\"");
+  httpClient.print(", ");
+  if (request == "/lux")
+  {
     httpClient.print("\"Lichtintensiteit\": ");
     httpClient.print(getLDRValue());
-  }else if(request == "/temp"){
+  }
+  else if (request == "/temp")
+  {
     httpClient.print("\"Temperatuur\": ");
-    httpClient.print(printTemperature());          
-  }else if(request == "/conf") {
+    httpClient.print(printTemperature());
+  }
+  else if (request == "/conf")
+  {
     httpClient.print("\"maximale grenswaarde\": ");
     httpClient.print(getMaxTemp());
     httpClient.print(",");
@@ -123,7 +131,7 @@ void printJSON(String request){
     httpClient.print(getMinTemp());
     httpClient.print(",");
     httpClient.print("\"Temperatuur\": ");
-    httpClient.print(printTemperature());   
+    httpClient.print(printTemperature());
     httpClient.print(",");
     httpClient.print("\"Lichtintensiteit\": ");
     httpClient.print(getLDRValue());
@@ -131,32 +139,32 @@ void printJSON(String request){
   httpClient.println("}");
 }
 
-void printHTML() {
-    httpClient.print("HTTP/1.1");
-          httpClient.println("Content-Type: text/html");
-          httpClient.println("Connection: close");  // the connection will be closed after completion of the response
-          httpClient.println();
-          httpClient.println("<!DOCTYPE HTML>");
-          httpClient.println("<html>");
-          httpClient.println("<head>");
-          httpClient.println("<meta charset=\"UTF-8\">");
-          httpClient.println("<title>");
-          httpClient.println("Weerstation");
-          httpClient.println("</title>");
-          httpClient.println("<body>");
-          httpClient.print("Temperatuur: ");
-          httpClient.print(printTemperature());
-          httpClient.print(" graden Celcius ");
-          httpClient.print("(min: ");
-          httpClient.print(getMinTemp());
-          httpClient.print(", max: ");
-          httpClient.print(getMaxTemp());
-          httpClient.print(")");
-          httpClient.print("</br>");
-          httpClient.print("Lichtintensiteit: ");
-          httpClient.print(getLDRValue());
-          httpClient.println(" lux");
-          httpClient.println("</body>");
-          httpClient.println("</html>");
+void printHTML()
+{
+  httpClient.print("HTTP/1.1");
+  httpClient.println("Content-Type: text/html");
+  httpClient.println("Connection: close"); // the connection will be closed after completion of the response
+  httpClient.println();
+  httpClient.println("<!DOCTYPE HTML>");
+  httpClient.println("<html>");
+  httpClient.println("<head>");
+  httpClient.println("<meta charset=\"UTF-8\">");
+  httpClient.println("<title>");
+  httpClient.println("Weerstation");
+  httpClient.println("</title>");
+  httpClient.println("<body>");
+  httpClient.print("Temperatuur: ");
+  httpClient.print(printTemperature());
+  httpClient.print(" graden Celcius ");
+  httpClient.print("(min: ");
+  httpClient.print(getMinTemp());
+  httpClient.print(", max: ");
+  httpClient.print(getMaxTemp());
+  httpClient.print(")");
+  httpClient.print("</br>");
+  httpClient.print("Lichtintensiteit: ");
+  httpClient.print(getLDRValue());
+  httpClient.println(" lux");
+  httpClient.println("</body>");
+  httpClient.println("</html>");
 }
-
