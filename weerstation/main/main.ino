@@ -42,9 +42,7 @@ void loop() {
 
 
   if(getTestWeerstation() == 0){
-    
-Serial.println("123");
-    tempLedLoop(); 
+      tempLedLoop(); 
     }
 }
 
