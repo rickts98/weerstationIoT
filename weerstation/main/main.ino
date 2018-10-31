@@ -12,7 +12,7 @@ void setup() {
   Serial.begin(9600);
   timerSetup();
   hardwareSetup();
-  testWeerstationSetup();
+  testSetup();
   webServerSetup();
   // maken van de buffer voor temp en lux deze is 10 groot en overschrijft als
   // het vol is

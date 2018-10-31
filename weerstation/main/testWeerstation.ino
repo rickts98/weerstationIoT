@@ -4,6 +4,7 @@
 unsigned long prevMillisTest;
 int testInterval = 500;
 int i = 0;
+//status van testen 
 boolean testWeerstation = false;
 
 void testWeerstationSetup() { prevMillisTest = millis(); }

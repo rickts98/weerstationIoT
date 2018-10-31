@@ -1,5 +1,6 @@
 
-// Variabelen
+//Functionaliteiten die te maken hebben met de knop
+//Variabelen
 const int BUTTONPIN = 8;
 boolean buttonPressed;
 
