@@ -34,15 +34,13 @@ void loop() {
   //controle of er op testknop gedrukt is
   if (buttonDown())
   {
- 
+
     //zorg dat de test gebeurt
     setTestWeerstation(true);
   }
 
 
   if(getTestWeerstation() == 0){
-    
-Serial.println("123");
     tempLedLoop(); 
     }
 }
