@@ -9,7 +9,7 @@ extern "C"
 byte mac[] = {
     0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
-IPAddress ip(192, 168, 1, 100);
+//IPAddress ip(192, 168, 1, 100);
 EthernetServer server(80);
 
 EthernetClient httpClient;
@@ -35,7 +35,7 @@ char clientPeek() { return httpClient.peek(); }
 void webServerSetup()
 {
 
-  Ethernet.begin(mac, ip);
+  Ethernet.begin(mac);
   Udp.begin(localPort);
   
   //start the server
