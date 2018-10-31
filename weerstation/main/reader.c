@@ -1,21 +1,18 @@
 #include "reader.h"
 
-
 int (*available)();
 
 char (*read)();
 
 char (*peek)();
 
+void initParser(int (*availableFunc)(), char (*readFunc)(),
 
-// void initParser(int (*availableFunc)(), char (*readFunc)(),
+                char (*peekFunc)()) {
 
-//                char (*peekFunc)()) {
+  available = availableFunc;
 
-//  available = availableFunc;
+  read = readFunc;
 
-//  read = readFunc;
-
-//  peek = peekFunc;
-
-// }
+  peek = peekFunc;
+}

@@ -9,45 +9,30 @@ enum token scanWhiteSpace(char *tokenv, int tokenc);
 enum token scanNewLines(char *tokenv, int tokenc);
 enum token scanWord(char *tokenv, int tokenc);
 
-int isWhiteSpace(char c)
-{
-  return (c == ' ' || c == '\t');
-}
+int isWhiteSpace(char c) { return (c == ' ' || c == '\t'); }
 
-int isNewLine(char c)
-{
-  return (c == '\n' || c == '\r');
-}
+int isNewLine(char c) { return (c == '\n' || c == '\r'); }
 
-enum token scan(char *tokenv, int tokenc)
-{  
+enum token scan(char *tokenv, int tokenc) {
 
   assert(tokenc > 0);
 
-  if (available())
-  {
+  if (available()) {
     memset(tokenv, 0, tokenc); // reset token value
 
     char c = peek();
 
-    if (c == ':')
-    {
+    if (c == ':') {
       tokenv[0] = read();
 
       return COLON;
-    }
-    else if (isWhiteSpace(c))
-    {
+    } else if (isWhiteSpace(c)) {
 
       return scanWhiteSpace(tokenv, tokenc);
-    }
-    else if (isNewLine(c))
-    {
+    } else if (isNewLine(c)) {
 
       return scanNewLines(tokenv, tokenc);
-    }
-    else
-    {
+    } else {
 
       return scanWord(tokenv, tokenc);
     }
@@ -56,80 +41,60 @@ enum token scan(char *tokenv, int tokenc)
   return UNAVAILABLE;
 }
 
-enum token scanWord(char *tokenv, int tokenc)
-{
+enum token scanWord(char *tokenv, int tokenc) {
   int pos = 0;
 
-
-
-  for (;;)
-  {
-    if (available() && !isWhiteSpace(peek()) && !isNewLine(peek()))
-    {
-      if (pos >= tokenc - 1)
-      {
+  for (;;) {
+    if (available() && !isWhiteSpace(peek()) && !isNewLine(peek())) {
+      if (pos >= tokenc - 1) {
         return ILLEGAL;
       }
       tokenv[pos] = read();
       pos++;
-    }
-    else
-    {
+    } else {
       return WORD;
     }
   }
 }
 
-enum token scanWhiteSpace(char *tokenv, int tokenc)
-{
+enum token scanWhiteSpace(char *tokenv, int tokenc) {
 
   int pos = 0;
 
-  for (;;)
-  {
+  for (;;) {
 
-    if (available() && isWhiteSpace(peek()))
-    {
+    if (available() && isWhiteSpace(peek())) {
 
-      if (pos >= tokenc - 1)
-      {
+      if (pos >= tokenc - 1) {
         return ILLEGAL;
       }
 
       tokenv[pos] = read();
 
       pos++;
-    }
-    else
-    {
+    } else {
 
       return WS;
     }
   }
 }
 
-enum token scanNewLines(char *tokenv, int tokenc)
-{
+enum token scanNewLines(char *tokenv, int tokenc) {
 
   int pos = 0;
 
-  for (;;)
-  {
+  for (;;) {
 
-    if (available() && isNewLine(peek()))
-    {
+    if (available() && isNewLine(peek())) {
 
-      if (pos >= tokenc - 1)
-      {
+      if (pos >= tokenc - 1) {
         return ILLEGAL;
       }
 
       tokenv[pos] = read();
 
       pos++;
-    }
-    else
-    {
+    } else {
 
       return EOL;
     }

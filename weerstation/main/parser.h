@@ -2,7 +2,6 @@
 
 #define parser_h
 
-
 enum response {
 
   IN_PROGRESS, // only part of the requests parsed
@@ -17,7 +16,7 @@ enum response {
 
   LUX_200, // reply light
 
-  BAD_REQUEST_400,     // no host, syntax error
+  BAD_REQUEST_400, // no host, syntax error
 
   NOT_IMPLEMENTED_501, // verb not implemented
 
@@ -33,7 +32,6 @@ enum response {
 
 };
 
-
 /**
 
  * reset parser, make it ready for next request
@@ -41,7 +39,6 @@ enum response {
  */
 
 void resetParser();
-
 
 /**
 
@@ -66,6 +63,5 @@ void resetParser();
  */
 
 enum response parse(char *tokenv, int tokenc);
-
 
 #endif

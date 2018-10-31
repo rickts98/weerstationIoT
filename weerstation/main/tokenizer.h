@@ -2,7 +2,6 @@
 
 #define tokenizer_h
 
-
 enum token {
   ILLEGAL,     // usually too long
   UNAVAILABLE, // no more chars available
@@ -16,11 +15,9 @@ enum token {
   WORD         // remaining series of characters
 };
 
-
 // get next from stream, if token > tokenc, ILLEGAL
 // is returned.
 
 enum token scan(char *tokenv, int tokenc);
-
 
 #endif
