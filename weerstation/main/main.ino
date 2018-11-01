@@ -5,7 +5,7 @@ extern "C" {
 cbuffer *bufferTemp;
 cbuffer *bufferLux;
 
-int weerstationID = 1;
+int weerstationID = 2;
 
 void setup() {
 
@@ -48,7 +48,7 @@ void hardwareSetup() {
   ldrSetup();
   ledControlSetup();
   buttonSetup();
-  initTemp();
+  //initTemp();
 }
 
 // getter van de temp buffer
