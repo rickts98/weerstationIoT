@@ -12,8 +12,6 @@ EthernetServer server(80);
 
 EthernetClient httpClient;
 
-
-
 const int toksize = 20;
 
 int clientAvailable() { return httpClient.available(); }
@@ -45,7 +43,6 @@ void webServer() {
       enum response tok;
 
       tok = parse(output, toksize);
-
 
       if (tok == TEMP_200) {
         printJSON("/temp");
