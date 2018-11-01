@@ -48,7 +48,6 @@ void hardwareSetup() {
   ldrSetup();
   ledControlSetup();
   buttonSetup();
-  // initGetTemperature();
   // initTemp();
 }
 
