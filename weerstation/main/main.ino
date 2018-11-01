@@ -5,14 +5,14 @@ extern "C" {
 cbuffer *bufferTemp;
 cbuffer *bufferLux;
 
-int weerstationID = 2;
+int weerstationID = 1;
 
 void setup() {
 
   Serial.begin(9600);
   timerSetup();
   hardwareSetup();
-  testSetup();
+  testWeerstationSetup();
   webServerSetup();
   // maken van de buffer voor temp en lux deze is 10 groot en overschrijft als
   // het vol is
@@ -48,8 +48,7 @@ void hardwareSetup() {
   ldrSetup();
   ledControlSetup();
   buttonSetup();
-  // initGetTemperature();
-  // initTemp();
+  initTemp();
 }
 
 // getter van de temp buffer
