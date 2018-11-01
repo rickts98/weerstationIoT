@@ -7,21 +7,12 @@ extern "C" {
 
 byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
-// IPAddress ip(192, 168, 1, 100);
+IPAddress ip(192, 168, 1, 100 + weerstationID);
 EthernetServer server(80);
 
 EthernetClient httpClient;
 
-/*test*/
-unsigned int localPort = 8888; // local port to listen on
 
-// buffers for receiving and sending data
-char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; // buffer to hold incoming packet,
-char ReplyBuffer[] = "acknowledged";       // a string to send back
-
-// An EthernetUDP instance to let us send and receive packets over UDP
-EthernetUDP Udp;
-/*end test*/
 
 const int toksize = 20;
 
@@ -55,7 +46,6 @@ void webServer() {
 
       tok = parse(output, toksize);
 
-      Serial.println(output);
 
       if (tok == TEMP_200) {
         printJSON("/temp");
