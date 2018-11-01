@@ -34,17 +34,15 @@ def uploadData():
 		temp = raw_data_json.get('Temperatuur')
 		lux = raw_data_json.get('Lichtintensiteit')
 		Id = raw_data_json.get('Weerstation')
-	
-	
 
-	data = {
-		"Weatherstation": Id,
-		"Timestamp": timestamp,
-		"Temperature": temp,
-		"Illuminance": lux
-		}
+		data = {
+			"Weatherstation": Id,
+			"Timestamp": timestamp,
+			"Temperature": temp,
+			"Illuminance": lux
+			}
 
-	send = request("POST", url, headers=header, data=data)
+		send = request("POST", url, headers=header, data=data)
 
 	response = send.text
 
@@ -79,8 +77,8 @@ if __name__ == "__main__":
 
 		if (currentMillis - previousMillis >= interval):
 			previousMillis = currentMillis
-			
-			if isTokenOnGeldig():			
+
+			if isTokenOnGeldig():
 				print("Getting new token")
 				getNewToken()
 				previousMillis = 0;
@@ -88,6 +86,3 @@ if __name__ == "__main__":
 				print("De data word geupload")
 				uploadData()
 
-	
-	
-	
