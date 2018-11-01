@@ -20,8 +20,6 @@ struct {
 
 void reset_buffer(const char *text) {
 
-  printf(text);
-
   buffer.length = 0;
 
   for (;;) {
@@ -40,14 +38,7 @@ void reset_buffer(const char *text) {
     }
   }
 
-  // printf("%d", buffer.length);
-  printf("testing fauilts\n");
-  printf("%s\n", text);
-
   buffer.text = strndup(text, buffer.length);
-
-  printf("buffer.text is gezet\n");
-  printf("%s\n", buffer.text);
 
   buffer.current = 0;
 }

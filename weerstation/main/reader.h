@@ -14,7 +14,7 @@ void initParser(int (*availableFunc)(), // client available function
 
                 char (*peekFunc)() // client peek function
 
-);
+                );
 
 /**
  * these function pointers can be reqgarded as functionsion defined
