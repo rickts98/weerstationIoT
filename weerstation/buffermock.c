@@ -41,10 +41,13 @@ void reset_buffer(const char *text) {
   }
 
   // printf("%d", buffer.length);
+  printf("testing fauilts\n");
+  printf("%s\n", text);
 
-  buffer.text = strdup(text);
+  buffer.text = strndup(text, buffer.length);
 
-  printf("%s", buffer.text);
+  printf("buffer.text is gezet\n");
+  printf("%s\n", buffer.text);
 
   buffer.current = 0;
 }

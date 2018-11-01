@@ -1,5 +1,9 @@
 #include "main/circularbuffer.h"
-#include "main/tempControl.ino"
+//#include "main/tempControl.ino"
+#include "buffermock.h"
+#include "main/parser.h"
+#include "main/reader.h"
+#include "main/tokenizer.h"
 #include <glib.h>
 
 #define BSIZE 10
@@ -192,23 +196,39 @@ void buffer_add_read() {
   b = cbFree(b);
 }
 
-void sensor_temp() {
-  int val;
+// void sensor_temp() {
+//   int val;
 
-  val = printTemperature();
+//   val = printTemperature();
 
-  g_assert_cmpint(val, >, -20);
-  g_assert_cmpint(val, <, 45);
+//   g_assert_cmpint(val, >, -20);
+//   g_assert_cmpint(val, <, 45);
+// }
+
+void reader_available() {
+
+  // essentially tests the mock ...
+
+  reset_buffer("x");
+
+  // g_assert(available());
+
+  // g_assert(read() == 'x');
+
+  // g_assert(!available());
 }
 
 int main(int argc, char **argv) {
+  initParser(available_buffer, read_buffer, peek_buffer);
   g_test_init(&argc, &argv, NULL);
 
-  g_test_add_func("/buffer/init", buffer_init);
-  g_test_add_func("/buffer/add/overwrite", buffer_add_overwrite);
-  g_test_add_func("/buffer/add/ignore", buffer_add_ignore);
-  g_test_add_func("/buffer/add/read", buffer_add_read);
-  g_test_add_func("/sensor/temp", sensor_temp);
+  g_test_add_func("/reader/available", reader_available);
+
+  // g_test_add_func("/buffer/init", buffer_init);
+  // g_test_add_func("/buffer/add/overwrite", buffer_add_overwrite);
+  // g_test_add_func("/buffer/add/ignore", buffer_add_ignore);
+  // g_test_add_func("/buffer/add/read", buffer_add_read);
+  // g_test_add_func("/sensor/temp", sensor_temp);
 
   return g_test_run();
 }

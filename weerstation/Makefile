@@ -11,7 +11,7 @@ exe=unittests
 all: fmt check clean
 
 
-$(exe): $(project)/circularbuffer.o
+$(exe): $(project)/circularbuffer.o $(project)/reader.o $(project)/tokenizer.o $(project)/parser.o buffermock.o
 
 
 fmt:

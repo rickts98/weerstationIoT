@@ -7,22 +7,21 @@ extern "C" {
 
 byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
-//IPAddress ip(192, 168, 1, 100);
+// IPAddress ip(192, 168, 1, 100);
 EthernetServer server(80);
 
 EthernetClient httpClient;
 
 /*test*/
-unsigned int localPort = 8888;      // local port to listen on
+unsigned int localPort = 8888; // local port to listen on
 
 // buffers for receiving and sending data
-char packetBuffer[UDP_TX_PACKET_MAX_SIZE];  // buffer to hold incoming packet,
-char ReplyBuffer[] = "acknowledged";        // a string to send back
+char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; // buffer to hold incoming packet,
+char ReplyBuffer[] = "acknowledged";       // a string to send back
 
 // An EthernetUDP instance to let us send and receive packets over UDP
 EthernetUDP Udp;
 /*end test*/
-
 
 const int toksize = 20;
 
@@ -92,7 +91,6 @@ void webServer() {
     httpClient.stop();
     Serial.println("client disconnected");
   }
-  
 }
 
 void printJSON(String request) {
@@ -119,7 +117,7 @@ void printJSON(String request) {
     httpClient.print(getMinTemp());
     httpClient.print(",");
     httpClient.print("\"Temperatuur\": ");
-    httpClient.print(printTemperature());   
+    httpClient.print(printTemperature());
     httpClient.print(",");
     httpClient.print("\"Lichtintensiteit\": ");
     httpClient.print(getLDRValue());
@@ -156,4 +154,3 @@ void printHTML() {
   httpClient.println("</body>");
   httpClient.println("</html>");
 }
-
