@@ -35,8 +35,6 @@ void webServer() {
   // listen for incoming clients
   httpClient = server.available();
   if (httpClient) {
-    Serial.println("new client");
-
     while (httpClient.connected()) {
       char output[toksize];
 
@@ -76,7 +74,6 @@ void webServer() {
     delay(1);
     // close the connection:
     httpClient.stop();
-    Serial.println("client disconnected");
   }
 }
 
